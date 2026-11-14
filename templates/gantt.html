@@ -1,0 +1,193 @@
+```html {% extends "base.html" %} {% block title %}Gantt Chart | ProjectHub{%
+endblock %} {% block heading %}Gantt Chart{% endblock %} {% block content %}
+
+<div class="page-intro">
+  <h2>Project Schedule Timeline</h2>
+  <p>
+    Visualize task durations, overlapping activities, and project deadlines.
+  </p>
+</div>
+
+<!-- Project Filter -->
+<section class="panel">
+  <h2>Filter Projects</h2>
+  <p class="panel-description">
+    Select a project to view its schedule, or display all projects.
+  </p>
+
+  <form method="GET" action="{{ url_for('gantt') }}" class="form-grid">
+    <label>
+      Select Project
+
+      <select name="project_id">
+        <option value="">All Projects</option>
+
+        {% for project in projects %}
+        <option value="{{ project.id }}">{{ project.name }}</option>
+        {% endfor %}
+      </select>
+    </label>
+
+    <div style="align-self: end">
+      <button type="submit" class="btn">View Schedule</button>
+    </div>
+  </form>
+</section>
+
+<!-- Gantt Chart -->
+<section class="panel">
+  <h2>Gantt Chart</h2>
+  <p class="panel-description">
+    Each horizontal bar represents a task's scheduled duration.
+  </p>
+
+  {% if tasks %}
+
+  <!-- Timeline Summary -->
+  <div class="gantt-summary">
+    <div>
+      <span class="summary-label">Scheduled Tasks</span>
+      <strong>{{ tasks|length }}</strong>
+    </div>
+
+    <div>
+      <span class="summary-label">Timeline Starts</span>
+      <strong>{{ timeline_start.strftime('%d %b %Y') }}</strong>
+    </div>
+
+    <div>
+      <span class="summary-label">Timeline Ends</span>
+      <strong>{{ timeline_end.strftime('%d %b %Y') }}</strong>
+    </div>
+
+    <div>
+      <span class="summary-label">Timeline Duration</span>
+      <strong>{{ total_days }} days</strong>
+    </div>
+  </div>
+
+  <!-- Timeline Rows -->
+  <div class="gantt-wrapper">
+    <div class="gantt-chart">
+      <div class="gantt-header">
+        <div class="gantt-task-name">Task Details</div>
+
+        <div class="gantt-timeline gantt-header-timeline">
+          <span>{{ timeline_start.strftime('%d %b %Y') }}</span>
+          <span>{{ timeline_end.strftime('%d %b %Y') }}</span>
+        </div>
+      </div>
+
+      {% for task in tasks %}
+      <div class="gantt-row">
+        <div class="gantt-task-name">
+          <strong>{{ task.title }}</strong>
+
+          <small> {{ task.project_name }} </small>
+
+          <small> Assigned to: {{ task.assigned_to or 'Unassigned' }} </small>
+
+          <small> {{ task.start_date }} → {{ task.deadline }} </small>
+
+          <small> Duration: {{ task.duration_days }} days </small>
+        </div>
+
+        <div class="gantt-timeline">
+          <div
+            class="gantt-bar"
+            style="left: {{ task.left_percent }}%; width: {{ task.width_percent }}%;"
+            title="{{ task.title }} | {{ task.start_date }} to {{ task.deadline }} | {{ task.status }}"
+          >
+            <span>{{ task.status }}</span>
+          </div>
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+
+  <!-- Legend -->
+  <div class="gantt-legend">
+    <span>
+      <i class="legend-box legend-pending"></i>
+      Pending
+    </span>
+
+    <span>
+      <i class="legend-box legend-progress"></i>
+      In Progress
+    </span>
+
+    <span>
+      <i class="legend-box legend-completed"></i>
+      Completed
+    </span>
+
+    <span>
+      <i class="legend-box legend-overdue"></i>
+      Past deadline
+    </span>
+  </div>
+
+  <p class="stat-note">
+    Task bars show scheduled calendar days. The chart helps you understand task
+    durations and project scheduling.
+  </p>
+
+  {% else %}
+
+  <!-- Empty State -->
+  <div class="empty-state">
+    <h3>No Scheduled Tasks</h3>
+
+    <p>
+      No tasks with valid start dates and deadlines were found for the selected
+      project.
+    </p>
+
+    <br />
+
+    <a href="{{ url_for('tasks') }}" class="btn"> Manage Tasks </a>
+  </div>
+
+  {% endif %}
+</section>
+
+<!-- Tasks Without Valid Dates -->
+{% if unscheduled_tasks %}
+
+<section class="panel">
+  <h2>Tasks Requiring Schedule Details</h2>
+
+  <p class="panel-description">
+    These tasks have missing or invalid dates and cannot appear on the timeline.
+  </p>
+
+  <div class="table-wrapper">
+    <table>
+      <thead>
+        <tr>
+          <th>Task</th>
+          <th>Project</th>
+          <th>Start Date</th>
+          <th>Deadline</th>
+          <th>Status</th>
+        </tr>
+      </thead>
+
+      <tbody>
+        {% for task in unscheduled_tasks %}
+        <tr>
+          <td>{{ task.title }}</td>
+          <td>{{ task.project_name }}</td>
+          <td>{{ task.start_date or 'Missing' }}</td>
+          <td>{{ task.deadline or 'Missing' }}</td>
+          <td>{{ task.status }}</td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+</section>
+
+{% endif %} {% endblock %} ```

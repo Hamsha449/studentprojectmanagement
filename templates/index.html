@@ -1,0 +1,124 @@
+```html {% extends "base.html" %} {% block title %}Dashboard | ProjectHub{%
+endblock %} {% block heading %}Dashboard{% endblock %} {% block content %}
+
+<div class="page-intro">
+  <h2>Welcome to ProjectHub 👋</h2>
+  <p>
+    Manage your student projects, organize tasks, monitor deadlines, and assess
+    project risks in one place.
+  </p>
+</div>
+
+<div class="stats-grid">
+  <div class="stat-card">
+    <p class="stat-label">Total Projects</p>
+    <h2 class="stat-value">{{ total_projects }}</h2>
+    <p class="stat-note">Projects registered in the system</p>
+  </div>
+
+  <div class="stat-card">
+    <p class="stat-label">Total Tasks</p>
+    <h2 class="stat-value">{{ total_tasks }}</h2>
+    <p class="stat-note">Tasks across all projects</p>
+  </div>
+
+  <div class="stat-card">
+    <p class="stat-label">Completed Tasks</p>
+    <h2 class="stat-value">{{ completed_tasks }}</h2>
+    <p class="stat-note">Tasks marked as completed</p>
+  </div>
+
+  <div class="stat-card">
+    <p class="stat-label">Overdue Tasks</p>
+    <h2 class="stat-value">{{ overdue_tasks }}</h2>
+    <p class="stat-note">Incomplete tasks past their deadlines</p>
+  </div>
+</div>
+
+<div class="panel">
+  <h2>Project Management Overview</h2>
+  <p class="panel-description">
+    Use the modules below to organize and monitor your project activities.
+  </p>
+
+  <div class="stats-grid">
+    <div class="stat-card">
+      <h3>📁 Projects</h3>
+      <p class="stat-note" style="margin: 12px 0 18px">
+        Create projects, define objectives, and set deadlines.
+      </p>
+      <a href="{{ url_for('projects') }}" class="btn">Manage Projects</a>
+    </div>
+
+    <div class="stat-card">
+      <h3>☑ Tasks</h3>
+      <p class="stat-note" style="margin: 12px 0 18px">
+        Break projects into tasks and estimate the effort required.
+      </p>
+      <a href="{{ url_for('tasks') }}" class="btn">Manage Tasks</a>
+    </div>
+
+    <div class="stat-card">
+      <h3>⚑ Risks</h3>
+      <p class="stat-note" style="margin: 12px 0 18px">
+        Identify project risks and plan mitigation strategies.
+      </p>
+      <a href="{{ url_for('risks') }}" class="btn">Manage Risks</a>
+    </div>
+  </div>
+</div>
+
+<div class="panel">
+  <h2>SPM Techniques Applied</h2>
+
+  <p class="panel-description">
+    This application demonstrates practical Software Project Management
+    techniques.
+  </p>
+
+  <div class="table-wrapper">
+    <table>
+      <thead>
+        <tr>
+          <th>Technique</th>
+          <th>Application</th>
+          <th>Purpose</th>
+        </tr>
+      </thead>
+
+      <tbody>
+        <tr>
+          <td>Work Breakdown Structure</td>
+          <td>Task Management</td>
+          <td>Divide projects into manageable activities</td>
+        </tr>
+
+        <tr>
+          <td>Effort Estimation</td>
+          <td>Estimated Task Hours</td>
+          <td>Estimate the work required</td>
+        </tr>
+
+        <tr>
+          <td>Schedule Management</td>
+          <td>Task Deadlines</td>
+          <td>Monitor planned completion dates</td>
+        </tr>
+
+        <tr>
+          <td>Risk Assessment</td>
+          <td>Probability × Impact</td>
+          <td>Prioritize project risks</td>
+        </tr>
+
+        <tr>
+          <td>Project Monitoring</td>
+          <td>Dashboard Statistics</td>
+          <td>Track completion and overdue tasks</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+{% endblock %} ```

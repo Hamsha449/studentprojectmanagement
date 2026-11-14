@@ -1,0 +1,200 @@
+```html {% extends "base.html" %} {% block title %}Risk Management |
+ProjectHub{% endblock %} {% block heading %}Risk Management{% endblock %} {%
+block content %}
+
+<div class="page-intro">
+  <h2>Identify and Manage Project Risks</h2>
+  <p>
+    Identify potential problems, assess their probability and impact, and
+    prepare mitigation strategies before they affect your project.
+  </p>
+</div>
+
+<section class="panel">
+  <h2>Record a New Risk</h2>
+
+  <p class="panel-description">
+    Assess each risk using a probability and impact scale from 1 to 5.
+  </p>
+
+  {% if projects %}
+
+  <form method="POST" class="form-grid">
+    <label>
+      Select Project *
+      <select name="project_id" required>
+        <option value="">Choose a project</option>
+
+        {% for project in projects %}
+        <option value="{{ project.id }}">{{ project.name }}</option>
+        {% endfor %}
+      </select>
+    </label>
+
+    <label>
+      Risk Description *
+      <input
+        type="text"
+        name="description"
+        placeholder="e.g., Delay in database development"
+        required
+      />
+    </label>
+
+    <label>
+      Probability (1–5) *
+      <select name="probability" required>
+        <option value="">Select probability</option>
+        <option value="1">1 - Very Low</option>
+        <option value="2">2 - Low</option>
+        <option value="3">3 - Medium</option>
+        <option value="4">4 - High</option>
+        <option value="5">5 - Very High</option>
+      </select>
+    </label>
+
+    <label>
+      Impact (1–5) *
+      <select name="impact" required>
+        <option value="">Select impact</option>
+        <option value="1">1 - Very Low</option>
+        <option value="2">2 - Low</option>
+        <option value="3">3 - Medium</option>
+        <option value="4">4 - High</option>
+        <option value="5">5 - Very High</option>
+      </select>
+    </label>
+
+    <label class="full-width">
+      Mitigation Strategy
+      <textarea
+        name="mitigation"
+        placeholder="Describe how you will prevent or reduce this risk..."
+      ></textarea>
+    </label>
+
+    <div class="full-width">
+      <button type="submit" class="btn">+ Record Risk</button>
+    </div>
+  </form>
+
+  {% else %}
+
+  <div class="empty-state">
+    <h3>No projects available</h3>
+    <p>Create a project before recording risks.</p>
+    <br />
+    <a href="{{ url_for('projects') }}" class="btn">Create a Project</a>
+  </div>
+
+  {% endif %}
+</section>
+
+<section class="panel">
+  <h2>Risk Register</h2>
+
+  <p class="panel-description">
+    Review identified risks and prioritize them using their risk scores.
+  </p>
+
+  {% if risks %}
+
+  <div class="table-wrapper">
+    <table>
+      <thead>
+        <tr>
+          <th>Project</th>
+          <th>Risk Description</th>
+          <th>Probability</th>
+          <th>Impact</th>
+          <th>Risk Score</th>
+          <th>Priority</th>
+          <th>Mitigation Strategy</th>
+        </tr>
+      </thead>
+
+      <tbody>
+        {% for risk in risks %}
+
+        <tr>
+          <td>{{ risk.project_name }}</td>
+
+          <td>{{ risk.description }}</td>
+
+          <td>{{ risk.probability }}/5</td>
+
+          <td>{{ risk.impact }}/5</td>
+
+          <td>
+            <strong>{{ risk.risk_score }}/25</strong>
+          </td>
+
+          <td>
+            {% if risk.risk_score >= 15 %}
+            <span class="badge badge-red">High</span>
+            {% elif risk.risk_score >= 6 %}
+            <span class="badge">{{ 'Medium' }}</span>
+            {% else %}
+            <span class="badge badge-green">Low</span>
+            {% endif %}
+          </td>
+
+          <td>{{ risk.mitigation or 'Not specified' }}</td>
+        </tr>
+
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+
+  {% else %}
+
+  <div class="empty-state">
+    <h3>No risks recorded</h3>
+    <p>Start by identifying a potential risk in one of your projects.</p>
+  </div>
+
+  {% endif %}
+</section>
+
+<section class="panel">
+  <h2>Risk Scoring Guide</h2>
+
+  <p class="panel-description">
+    The system uses a simple probability-impact matrix to prioritize risks.
+  </p>
+
+  <div class="table-wrapper">
+    <table>
+      <thead>
+        <tr>
+          <th>Risk Score</th>
+          <th>Priority</th>
+          <th>Recommended Action</th>
+        </tr>
+      </thead>
+
+      <tbody>
+        <tr>
+          <td>1–5</td>
+          <td><span class="badge badge-green">Low</span></td>
+          <td>Monitor the risk periodically.</td>
+        </tr>
+
+        <tr>
+          <td>6–14</td>
+          <td><span class="badge">Medium</span></td>
+          <td>Prepare a mitigation plan and review regularly.</td>
+        </tr>
+
+        <tr>
+          <td>15–25</td>
+          <td><span class="badge badge-red">High</span></td>
+          <td>Prioritize action and establish a response plan.</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+{% endblock %} ```

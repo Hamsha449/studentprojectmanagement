@@ -1,0 +1,1206 @@
+
+/* ==========================================
+   1. GLOBAL STYLES
+========================================== */
+
+:root {
+    --primary: #6258d9;
+    --primary-dark: #4d43bd;
+    --background: #f5f6fc;
+    --surface: #ffffff;
+    --text: #252640;
+    --muted: #777b91;
+    --border: #e4e6f0;
+
+    --success: #16845b;
+    --success-bg: #e5f7ef;
+
+    --danger: #d94848;
+    --danger-bg: #ffeded;
+
+    --warning: #b7791f;
+    --warning-bg: #fff5dc;
+
+    --info: #2479cf;
+    --info-bg: #e8f3ff;
+
+    --radius: 12px;
+    --shadow: 0 4px 18px rgba(40, 40, 80, 0.05);
+}
+
+* {
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    margin: 0;
+    font-family: "Segoe UI", Arial, sans-serif;
+    background: var(--background);
+    color: var(--text);
+    font-size: 14px;
+    line-height: 1.6;
+}
+
+a {
+    color: var(--primary);
+    text-decoration: none;
+}
+
+a:hover {
+    color: var(--primary-dark);
+}
+
+button,
+input,
+select,
+textarea {
+    font: inherit;
+}
+
+button {
+    cursor: pointer;
+}
+
+h1,
+h2,
+h3,
+h4,
+p {
+    margin-top: 0;
+}
+
+h1,
+h2,
+h3 {
+    line-height: 1.3;
+}
+
+h2 {
+    font-size: 20px;
+    margin-bottom: 12px;
+}
+
+h3 {
+    font-size: 16px;
+}
+
+
+/* ==========================================
+   2. MAIN APPLICATION LAYOUT
+========================================== */
+
+.app-container {
+    display: flex;
+    min-height: 100vh;
+}
+
+.sidebar {
+    width: 250px;
+    min-width: 250px;
+    background: #242443;
+    color: #ffffff;
+    padding: 28px 18px;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+.main-content {
+    flex: 1;
+    min-width: 0;
+    padding: 30px;
+}
+
+
+/* ==========================================
+   3. SIDEBAR BRAND
+========================================== */
+
+.sidebar-brand {
+    margin-bottom: 30px;
+}
+
+.logo {
+    font-size: 25px;
+    font-weight: 750;
+    letter-spacing: -0.8px;
+    margin: 0 0 8px;
+    color: #ffffff;
+    line-height: 1.5;
+}
+
+.logo span {
+    color: #aaa3ff;
+}
+
+.sidebar-brand p {
+    color: #b8b9d0;
+    font-size: 12px;
+    margin: 5px 0 0;
+}
+
+.sidebar-section-title {
+    color: #b8b9d0;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 1px;
+    margin-bottom: 12px;
+}
+
+
+/* ==========================================
+   4. SIDEBAR NAVIGATION
+========================================== */
+
+.sidebar nav {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.sidebar nav a {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 12px 14px;
+    color: #d4d5e8;
+    border-radius: 9px;
+    font-size: 14px;
+    transition: background 0.2s, color 0.2s;
+}
+
+.sidebar nav a span {
+    font-size: 18px;
+    width: 22px;
+    text-align: center;
+    flex-shrink: 0;
+}
+
+.sidebar nav a:hover {
+    background: #34345a;
+    color: #ffffff;
+}
+
+.sidebar nav a.active {
+    background: var(--primary);
+    color: #ffffff;
+    font-weight: 600;
+}
+
+
+/* ==========================================
+   5. SIDEBAR USER FOOTER
+========================================== */
+
+.sidebar-footer {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-top: 30px;
+    padding-top: 20px;
+    border-top: 1px solid #41415e;
+}
+
+.user-avatar {
+    width: 38px;
+    height: 38px;
+    border-radius: 50%;
+    background: var(--primary);
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    flex-shrink: 0;
+}
+
+.user-details strong,
+.user-details small {
+    display: block;
+}
+
+.user-details strong {
+    color: white;
+    font-size: 13px;
+}
+
+.user-details small {
+    color: #b8b9d0;
+    font-size: 11px;
+    margin-top: 3px;
+}
+
+
+/* ==========================================
+   6. TOP HEADER
+========================================== */
+
+.topbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 15px;
+    margin-bottom: 28px;
+}
+
+.topbar h1 {
+    font-size: 26px;
+    margin: 0;
+    font-weight: 700;
+}
+
+.topbar p {
+    color: var(--muted);
+    margin: 0 0 5px;
+}
+
+.breadcrumb {
+    color: var(--muted);
+    font-size: 13px;
+}
+
+.topbar-label {
+    color: var(--text);
+    font-size: 13px;
+    white-space: nowrap;
+}
+
+
+/* ==========================================
+   7. PAGE INTRODUCTION
+========================================== */
+
+.page-intro {
+    margin-bottom: 25px;
+}
+
+.page-intro h2 {
+    font-size: 24px;
+    margin-bottom: 8px;
+}
+
+.page-intro p {
+    color: var(--muted);
+    max-width: 850px;
+    margin-bottom: 0;
+    line-height: 1.8;
+}
+
+.panel-description {
+    color: var(--muted);
+    font-size: 13px;
+    margin-bottom: 22px;
+}
+
+
+/* ==========================================
+   8. PAGE CONTENT AND FOOTER
+========================================== */
+
+.page-content {
+    min-height: 300px;
+}
+
+.page-footer {
+    margin-top: 30px;
+    padding: 18px 0;
+    border-top: 1px solid var(--border);
+    color: var(--muted);
+    font-size: 12px;
+}
+
+
+/* ==========================================
+   9. DASHBOARD STATISTICS
+========================================== */
+
+.stats-grid {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 18px;
+    margin-bottom: 25px;
+}
+
+.stat-card {
+    background: var(--surface);
+    padding: 22px;
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
+    min-width: 0;
+}
+
+.stat-label {
+    color: var(--muted);
+    font-size: 13px;
+    margin-bottom: 12px;
+}
+
+.stat-value {
+    font-size: 32px;
+    font-weight: 750;
+    margin: 0 0 8px;
+    color: var(--text);
+}
+
+.stat-note {
+    font-size: 12px;
+    color: var(--muted);
+    margin-bottom: 0;
+    overflow-wrap: anywhere;
+}
+
+
+/* ==========================================
+   10. PANELS
+========================================== */
+
+.panel {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 25px;
+    margin-bottom: 25px;
+    box-shadow: var(--shadow);
+    min-width: 0;
+}
+
+.panel h2 {
+    margin-bottom: 10px;
+}
+
+.panel h3 {
+    margin-bottom: 10px;
+}
+
+
+/* ==========================================
+   11. BUTTONS
+========================================== */
+
+.btn {
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    gap: 8px;
+    padding: 11px 18px;
+    background: var(--primary);
+    color: #ffffff;
+    border: none;
+    border-radius: 8px;
+    font-size: 13px;
+    font-weight: 600;
+    text-align: center;
+    transition: background 0.2s, transform 0.2s;
+    cursor: pointer;
+}
+
+.btn:hover {
+    background: var(--primary-dark);
+    color: #ffffff;
+}
+
+.btn:active {
+    transform: translateY(1px);
+}
+
+.btn-secondary {
+    background: #ecebff;
+    color: var(--primary-dark);
+}
+
+.btn-secondary:hover {
+    background: #dedcff;
+    color: var(--primary-dark);
+}
+
+.btn-danger {
+    background: var(--danger);
+    color: #ffffff;
+}
+
+.btn-danger:hover {
+    background: #b83232;
+    color: #ffffff;
+}
+
+.btn-success {
+    background: var(--success);
+    color: #ffffff;
+}
+
+.btn-success:hover {
+    background: #116b49;
+    color: #ffffff;
+}
+
+
+/* ==========================================
+   12. FORMS
+========================================== */
+
+.form-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 20px;
+}
+
+.form-grid label {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--text);
+    min-width: 0;
+}
+
+.full-width {
+    grid-column: 1 / -1;
+}
+
+input[type="text"],
+input[type="number"],
+input[type="date"],
+input[type="email"],
+input[type="password"],
+select,
+textarea {
+    width: 100%;
+    min-width: 0;
+    padding: 12px 13px;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    background: #ffffff;
+    color: var(--text);
+    font-size: 13px;
+    outline: none;
+    transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+input::placeholder,
+textarea::placeholder {
+    color: #a2a5b7;
+}
+
+input:focus,
+select:focus,
+textarea:focus {
+    border-color: var(--primary);
+    box-shadow: 0 0 0 3px rgba(98, 88, 217, 0.12);
+}
+
+textarea {
+    min-height: 110px;
+    resize: vertical;
+}
+
+select {
+    cursor: pointer;
+}
+
+.form-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    align-items: center;
+}
+
+
+/* ==========================================
+   13. TABLES
+========================================== */
+
+.table-wrapper {
+    width: 100%;
+    overflow-x: auto;
+    border: 1px solid var(--border);
+    border-radius: 9px;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    text-align: left;
+    font-size: 13px;
+}
+
+thead {
+    background: #f7f8fc;
+}
+
+th {
+    color: #666b83;
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    white-space: nowrap;
+}
+
+th,
+td {
+    padding: 15px 16px;
+    border-bottom: 1px solid var(--border);
+    vertical-align: top;
+}
+
+tbody tr:last-child td {
+    border-bottom: none;
+}
+
+tbody tr:hover {
+    background: #fafaff;
+}
+
+td {
+    overflow-wrap: anywhere;
+}
+
+td strong {
+    color: var(--text);
+}
+
+
+/* ==========================================
+   14. STATUS BADGES
+========================================== */
+
+.badge {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 5px 10px;
+    border-radius: 20px;
+    background: #eeedff;
+    color: var(--primary-dark);
+    font-size: 11px;
+    font-weight: 700;
+    white-space: nowrap;
+}
+
+.badge-green {
+    background: var(--success-bg);
+    color: var(--success);
+}
+
+.badge-red {
+    background: var(--danger-bg);
+    color: var(--danger);
+}
+
+.badge-yellow {
+    background: var(--warning-bg);
+    color: var(--warning);
+}
+
+.badge-blue {
+    background: var(--info-bg);
+    color: var(--info);
+}
+
+
+/* ==========================================
+   15. EMPTY STATES
+========================================== */
+
+.empty-state {
+    text-align: center;
+    padding: 45px 20px;
+    border: 1px dashed var(--border);
+    border-radius: 10px;
+    background: #fcfcff;
+}
+
+.empty-state h3 {
+    margin-bottom: 8px;
+}
+
+.empty-state p {
+    color: var(--muted);
+    margin-bottom: 0;
+}
+
+
+/* ==========================================
+   16. FLASH MESSAGES
+========================================== */
+
+.flash-messages {
+    margin-bottom: 20px;
+}
+
+.flash-messages:empty {
+    display: none;
+}
+
+.flash,
+.flash-message,
+.alert {
+    padding: 13px 16px;
+    margin-bottom: 12px;
+    border-radius: 8px;
+    border: 1px solid #d9d5ff;
+    background: #f0efff;
+    color: #4940a8;
+    font-size: 13px;
+}
+
+.flash.success,
+.alert-success {
+    background: var(--success-bg);
+    color: var(--success);
+    border-color: #b7e8d0;
+}
+
+.flash.error,
+.alert-danger {
+    background: var(--danger-bg);
+    color: var(--danger);
+    border-color: #ffcaca;
+}
+
+
+/* ==========================================
+   17. GANTT CHART SUMMARY
+========================================== */
+
+.gantt-summary {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 14px;
+    margin: 22px 0;
+}
+
+.gantt-summary > div {
+    background: #f8f8ff;
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 16px;
+    min-width: 0;
+}
+
+.summary-label {
+    display: block;
+    color: var(--muted);
+    font-size: 12px;
+    line-height: 1.5;
+}
+
+.gantt-summary strong {
+    display: block;
+    margin-top: 8px;
+    font-size: 17px;
+    overflow-wrap: anywhere;
+}
+
+
+/* ==========================================
+   18. GANTT CHART CONTAINER
+========================================== */
+
+.gantt-wrapper {
+    width: 100%;
+    overflow-x: auto;
+    margin-top: 22px;
+    border: 1px solid var(--border);
+    border-radius: 10px;
+}
+
+.gantt-chart {
+    min-width: 850px;
+    background: #ffffff;
+}
+
+.gantt-header,
+.gantt-row {
+    display: grid;
+    grid-template-columns: 250px minmax(600px, 1fr);
+    border-bottom: 1px solid var(--border);
+}
+
+.gantt-header {
+    background: #f6f7fc;
+    font-size: 12px;
+    font-weight: 700;
+}
+
+.gantt-row:last-child {
+    border-bottom: none;
+}
+
+
+/* ==========================================
+   19. GANTT TASK DETAILS
+========================================== */
+
+.gantt-task-name {
+    padding: 15px 13px;
+    min-width: 0;
+    overflow-wrap: anywhere;
+    border-right: 1px solid var(--border);
+}
+
+.gantt-task-name strong {
+    display: block;
+    font-size: 13px;
+    margin-bottom: 6px;
+    color: var(--text);
+}
+
+.gantt-task-name small {
+    display: block;
+    font-size: 11px;
+    color: var(--muted);
+    margin-top: 4px;
+    line-height: 1.5;
+}
+
+
+/* ==========================================
+   20. GANTT TIMELINE
+========================================== */
+
+.gantt-timeline {
+    position: relative;
+    min-height: 100px;
+    overflow: hidden;
+    background-color: #ffffff;
+
+    background-image: linear-gradient(
+        to right,
+        #e7e9f2 1px,
+        transparent 1px
+    );
+
+    background-size: 10% 100%;
+}
+
+.gantt-header-timeline {
+    min-height: 48px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 10px;
+    padding: 12px;
+    overflow: visible;
+    background-color: #f6f7fc;
+    background-image: none;
+    font-size: 11px;
+}
+
+.gantt-header-timeline span {
+    overflow-wrap: anywhere;
+}
+
+
+/* ==========================================
+   21. GANTT TASK BARS
+========================================== */
+
+.gantt-bar {
+    position: absolute;
+    top: 34px;
+    height: 30px;
+    min-width: 3px;
+    max-width: 100%;
+    border-radius: 6px;
+
+    display: flex;
+    align-items: center;
+
+    padding: 0 8px;
+
+    background: #7778e8;
+    color: #ffffff;
+
+    font-size: 10px;
+    font-weight: 600;
+
+    overflow: hidden;
+    white-space: nowrap;
+
+    box-shadow: 0 2px 5px rgba(50, 50, 100, 0.12);
+
+    transition: filter 0.2s;
+}
+
+.gantt-bar:hover {
+    filter: brightness(0.92);
+}
+
+.gantt-bar span {
+    display: block;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+
+/* ==========================================
+   22. GANTT STATUS COLORS
+========================================== */
+
+.gantt-bar:not(.gantt-progress):not(.gantt-completed):not(.gantt-overdue) {
+    background: #7778e8;
+}
+
+.gantt-progress {
+    background: #2479cf;
+}
+
+.gantt-completed {
+    background: #16845b;
+}
+
+.gantt-overdue {
+    background: #d94848;
+}
+
+
+/* ==========================================
+   23. GANTT LEGEND
+========================================== */
+
+.gantt-legend {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 18px;
+    margin-top: 20px;
+    margin-bottom: 15px;
+}
+
+.gantt-legend span {
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    font-size: 12px;
+    color: var(--muted);
+}
+
+.legend-box {
+    display: inline-block;
+    width: 13px;
+    height: 13px;
+    border-radius: 3px;
+    flex-shrink: 0;
+}
+
+.legend-pending {
+    background: #7778e8;
+}
+
+.legend-progress {
+    background: #2479cf;
+}
+
+.legend-completed {
+    background: #16845b;
+}
+
+.legend-overdue {
+    background: #d94848;
+}
+
+
+/* ==========================================
+   24. GANTT TODAY MARKER
+========================================== */
+
+.gantt-today-line {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    width: 2px;
+    background: #f59e0b;
+    z-index: 2;
+    pointer-events: none;
+}
+
+.gantt-today-line::before {
+    content: "Today";
+    position: absolute;
+    top: 2px;
+    left: 4px;
+    padding: 2px 5px;
+    background: #f59e0b;
+    color: #ffffff;
+    border-radius: 3px;
+    font-size: 9px;
+}
+
+
+/* ==========================================
+   25. SPM TECHNIQUE TABLE
+========================================== */
+
+.technique-name {
+    font-weight: 600;
+    color: var(--primary-dark);
+}
+
+.technique-description {
+    color: var(--muted);
+    font-size: 12px;
+}
+
+
+/* ==========================================
+   26. UTILITY CLASSES
+========================================== */
+
+.text-muted {
+    color: var(--muted);
+}
+
+.text-success {
+    color: var(--success);
+}
+
+.text-danger {
+    color: var(--danger);
+}
+
+.text-warning {
+    color: var(--warning);
+}
+
+.text-center {
+    text-align: center;
+}
+
+.text-right {
+    text-align: right;
+}
+
+.mt-1 {
+    margin-top: 8px;
+}
+
+.mt-2 {
+    margin-top: 16px;
+}
+
+.mt-3 {
+    margin-top: 24px;
+}
+
+.mb-1 {
+    margin-bottom: 8px;
+}
+
+.mb-2 {
+    margin-bottom: 16px;
+}
+
+.mb-3 {
+    margin-bottom: 24px;
+}
+
+
+/* ==========================================
+   27. TABLET RESPONSIVENESS
+========================================== */
+
+@media (max-width: 1100px) {
+
+    .stats-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .gantt-summary {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .main-content {
+        padding: 24px;
+    }
+
+}
+
+
+/* ==========================================
+   28. MOBILE RESPONSIVENESS
+========================================== */
+
+@media (max-width: 700px) {
+
+    .app-container {
+        flex-direction: column;
+    }
+
+    .sidebar {
+        width: 100%;
+        min-width: 0;
+        min-height: auto;
+        padding: 18px;
+    }
+
+    .logo {
+        font-size: 22px;
+        margin-bottom: 4px;
+    }
+
+    .sidebar-brand {
+        margin-bottom: 20px;
+    }
+
+    .sidebar-brand p {
+        margin-bottom: 10px;
+    }
+
+    .sidebar nav {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 7px;
+    }
+
+    .sidebar nav a {
+        padding: 10px;
+        font-size: 12px;
+        gap: 7px;
+    }
+
+    .sidebar nav a span {
+        font-size: 15px;
+        width: 18px;
+    }
+
+    .sidebar-footer {
+        margin-top: 20px;
+    }
+
+    .main-content {
+        padding: 18px;
+    }
+
+    .topbar {
+        margin-bottom: 22px;
+    }
+
+    .topbar h1 {
+        font-size: 22px;
+    }
+
+    .topbar-label {
+        display: none;
+    }
+
+    .page-intro h2 {
+        font-size: 21px;
+    }
+
+    .stats-grid {
+        grid-template-columns: 1fr;
+        gap: 12px;
+    }
+
+    .stat-card {
+        padding: 18px;
+    }
+
+    .stat-value {
+        font-size: 28px;
+    }
+
+    .panel {
+        padding: 18px;
+        margin-bottom: 18px;
+    }
+
+    .form-grid {
+        grid-template-columns: 1fr;
+        gap: 16px;
+    }
+
+    .full-width {
+        grid-column: auto;
+    }
+
+    .gantt-summary {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 10px;
+    }
+
+    .gantt-summary > div {
+        padding: 12px;
+    }
+
+    .gantt-summary strong {
+        font-size: 14px;
+    }
+
+    .gantt-wrapper {
+        margin-top: 15px;
+    }
+
+    .table-wrapper table {
+        min-width: 600px;
+    }
+
+    .page-footer {
+        margin-top: 20px;
+    }
+
+}
+
+
+/* ==========================================
+   29. ACCESSIBILITY
+========================================== */
+
+button:focus-visible,
+a:focus-visible,
+input:focus-visible,
+select:focus-visible,
+textarea:focus-visible {
+    outline: 3px solid rgba(98, 88, 217, 0.4);
+    outline-offset: 2px;
+}
+
+
+/* ==========================================
+   30. PRINT STYLES
+========================================== */
+
+@media print {
+
+    .sidebar,
+    .btn,
+    button,
+    .form-grid,
+    .topbar-label {
+        display: none !important;
+    }
+
+    .app-container {
+        display: block;
+    }
+
+    .main-content {
+        padding: 0;
+    }
+
+    body {
+        background: #ffffff;
+    }
+
+    .panel,
+    .stat-card {
+        box-shadow: none;
+        break-inside: avoid;
+    }
+
+    .gantt-wrapper {
+        overflow: visible;
+    }
+
+    .gantt-chart {
+        min-width: 0;
+    }
+
+}

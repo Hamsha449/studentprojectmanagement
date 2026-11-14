@@ -1,0 +1,118 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <title>{% block title %}ProjectHub{% endblock %}</title>
+
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='style.css') }}"
+    />
+  </head>
+
+  <body>
+    <div class="app-container">
+      <!-- Sidebar -->
+      <aside class="sidebar">
+        <div class="sidebar-brand">
+          <div class="logo"><span>SP</span> ProjectHub</div>
+
+          <p>Student Workspace</p>
+        </div>
+
+        <div class="sidebar-section-title">WORKSPACE</div>
+
+        <!-- Navigation -->
+        <nav>
+          <a
+            href="{{ url_for('index') }}"
+            class="{% if request.endpoint == 'index' %}active{% endif %}"
+          >
+            <span>▦</span>
+            Dashboard
+          </a>
+
+          <a
+            href="{{ url_for('projects') }}"
+            class="{% if request.endpoint == 'projects' %}active{% endif %}"
+          >
+            <span>▤</span>
+            Projects
+          </a>
+
+          <a
+            href="{{ url_for('tasks') }}"
+            class="{% if request.endpoint == 'tasks' %}active{% endif %}"
+          >
+            <span>☑</span>
+            Tasks
+          </a>
+
+          <a
+            href="{{ url_for('risks') }}"
+            class="{% if request.endpoint == 'risks' %}active{% endif %}"
+          >
+            <span>⚑</span>
+            Risk Management
+          </a>
+
+          <a
+            href="{{ url_for('gantt') }}"
+            class="{% if request.endpoint == 'gantt' %}active{% endif %}"
+          >
+            <span>▥</span>
+            Gantt Chart
+          </a>
+        </nav>
+
+        <!-- Sidebar Footer -->
+        <div class="sidebar-footer">
+          <div class="user-avatar">S</div>
+
+          <div class="user-details">
+            <strong>Student User</strong>
+            <small>Project Manager</small>
+          </div>
+        </div>
+      </aside>
+
+      <!-- Main Content -->
+      <main class="main-content">
+        <!-- Page Header -->
+        <header class="topbar">
+          <div>
+            <p class="breadcrumb">Workspace / Project Management</p>
+
+            <h1>{% block heading %}Dashboard{% endblock %}</h1>
+          </div>
+
+          <div class="topbar-label">Project Workspace</div>
+        </header>
+
+        <!-- Flash Messages -->
+        <div class="flash-messages">
+          {% with messages = get_flashed_messages(with_categories=true) %} {% if
+          messages %} {% for category, message in messages %}
+
+          <div
+            class="flash {% if category == 'error' %}error {% elif category == 'success' %}success {% endif %}"
+          >
+            {{ message }}
+          </div>
+
+          {% endfor %} {% endif %} {% endwith %}
+        </div>
+
+        <!-- Individual Page Content -->
+        <div class="page-content">{% block content %} {% endblock %}</div>
+
+        <!-- Footer -->
+        <footer class="page-footer">
+          ProjectHub &copy; 2026 | Student Project Management System
+        </footer>
+      </main>
+    </div>
+  </body>
+</html>

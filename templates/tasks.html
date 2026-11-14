@@ -1,0 +1,186 @@
+```html {% extends "base.html" %} {% block title %}Tasks | ProjectHub{% endblock
+%} {% block heading %}Task Management{% endblock %} {% block content %}
+
+<div class="page-intro">
+  <h2>Manage Project Tasks</h2>
+  <p>
+    Break projects into manageable activities, assign responsibilities, estimate
+    effort, and track deadlines.
+  </p>
+</div>
+
+<section class="panel">
+  <h2>Add New Task</h2>
+  <p class="panel-description">
+    Associate a task with a project and define its schedule and estimated
+    effort.
+  </p>
+
+  {% if projects %}
+
+  <form method="POST" class="form-grid">
+    <label>
+      Project *
+      <select name="project_id" required>
+        <option value="">Select a project</option>
+        {% for project in projects %}
+        <option value="{{ project.id }}">{{ project.name }}</option>
+        {% endfor %}
+      </select>
+    </label>
+
+    <label>
+      Task Title *
+      <input
+        type="text"
+        name="title"
+        placeholder="e.g., Design the database"
+        required
+      />
+    </label>
+
+    <label>
+      Assigned To
+      <input
+        type="text"
+        name="assigned_to"
+        placeholder="Enter student or team member name"
+      />
+    </label>
+
+    <label>
+      Estimated Effort (Hours) *
+      <input
+        type="number"
+        name="estimated_hours"
+        min="0"
+        step="0.5"
+        value="1"
+        required
+      />
+    </label>
+
+    <label>
+      Start Date
+      <input type="date" name="start_date" />
+    </label>
+
+    <label>
+      Deadline
+      <input type="date" name="deadline" />
+    </label>
+
+    <div class="full-width">
+      <button type="submit" class="btn">+ Add Task</button>
+    </div>
+  </form>
+
+  {% else %}
+
+  <div class="empty-state">
+    <h3>No projects available</h3>
+    <p>Create a project before adding tasks.</p>
+    <br />
+    <a href="{{ url_for('projects') }}" class="btn">Create a Project</a>
+  </div>
+
+  {% endif %}
+</section>
+
+<section class="panel">
+  <h2>All Project Tasks</h2>
+  <p class="panel-description">
+    Review tasks, estimated effort, responsibilities, and deadlines.
+  </p>
+
+  {% if tasks %}
+
+  <div class="table-wrapper">
+    <table>
+      <thead>
+        <tr>
+          <th>Task</th>
+          <th>Project</th>
+          <th>Assigned To</th>
+          <th>Estimated Hours</th>
+          <th>Deadline</th>
+          <th>Status</th>
+          <th>Action</th>
+        </tr>
+      </thead>
+
+      <tbody>
+        {% for task in tasks %}
+
+        <tr>
+          <td>
+            <strong>{{ task.title }}</strong>
+          </td>
+
+          <td>{{ task.project_name }}</td>
+
+          <td>{{ task.assigned_to or 'Unassigned' }}</td>
+
+          <td>{{ task.estimated_hours }} hrs</td>
+
+          <td>{{ task.deadline or 'Not set' }}</td>
+
+          <td>
+            {% if task.status == 'Completed' %}
+
+            <span class="badge badge-green">Completed</span>
+
+            {% elif task.deadline and task.deadline < today and task.status !=
+            'Completed' %}
+
+            <span class="badge badge-red">Overdue</span>
+
+            {% else %}
+
+            <span class="badge">{{ task.status }}</span>
+
+            {% endif %}
+          </td>
+
+          <td>
+            <form
+              action="{{ url_for('delete_task', task_id=task.id) }}"
+              method="POST"
+              onsubmit="
+                return confirm('Are you sure you want to delete this task?');
+              "
+            >
+              <button
+                type="submit"
+                class="delete-btn"
+                style="
+                  background-color: #dc3545;
+                  color: white;
+                  border: none;
+                  padding: 8px 12px;
+                  border-radius: 5px;
+                  cursor: pointer;
+                "
+              >
+                Delete
+              </button>
+            </form>
+          </td>
+        </tr>
+
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+
+  {% else %}
+
+  <div class="empty-state">
+    <h3>No tasks yet</h3>
+    <p>Add your first task using the form above.</p>
+  </div>
+
+  {% endif %}
+</section>
+
+{% endblock %} ```

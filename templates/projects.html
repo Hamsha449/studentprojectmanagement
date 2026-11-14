@@ -1,0 +1,103 @@
+```html {% extends "base.html" %} {% block title %}Projects | ProjectHub{%
+endblock %} {% block heading %}Project Management{% endblock %} {% block content
+%}
+
+<div class="page-intro">
+  <h2>Manage Your Projects</h2>
+  <p>Create projects, define their objectives, and establish schedules.</p>
+</div>
+
+<div class="panel">
+  <h2>Create New Project</h2>
+  <p class="panel-description">
+    Enter the project details to add a project to your workspace.
+  </p>
+
+  <form method="POST" class="form-grid">
+    <label class="full-width">
+      Project Name *
+      <input
+        type="text"
+        name="name"
+        placeholder="e.g., Student Attendance Management System"
+        required
+      />
+    </label>
+
+    <label class="full-width">
+      Project Description
+      <textarea
+        name="description"
+        placeholder="Describe the project objectives and scope..."
+      ></textarea>
+    </label>
+
+    <label>
+      Start Date
+      <input type="date" name="start_date" />
+    </label>
+
+    <label>
+      Deadline
+      <input type="date" name="deadline" />
+    </label>
+
+    <div class="full-width">
+      <button type="submit" class="btn">+ Create Project</button>
+    </div>
+  </form>
+</div>
+
+<div class="panel">
+  <h2>All Projects</h2>
+  <p class="panel-description">View the projects registered in the system.</p>
+
+  {% if projects %}
+
+  <div class="table-wrapper">
+    <table>
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Project Name</th>
+          <th>Start Date</th>
+          <th>Deadline</th>
+          <th>Status</th>
+        </tr>
+      </thead>
+
+      <tbody>
+        {% for project in projects %}
+        <tr>
+          <td>#{{ project.id }}</td>
+
+          <td>
+            <strong>{{ project.name }}</strong>
+            <p class="stat-note" style="margin-top: 5px">
+              {{ project.description or 'No description provided' }}
+            </p>
+          </td>
+
+          <td>{{ project.start_date or 'Not set' }}</td>
+          <td>{{ project.deadline or 'Not set' }}</td>
+
+          <td>
+            <span class="badge">{{ project.status }}</span>
+          </td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+
+  {% else %}
+
+  <div class="empty-state">
+    <h3>No projects yet</h3>
+    <p>Create your first project using the form above.</p>
+  </div>
+
+  {% endif %}
+</div>
+
+{% endblock %} ```
